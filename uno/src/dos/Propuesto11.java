@@ -1,0 +1,34 @@
+package dos;
+
+import java.util.Scanner;
+
+public class Propuesto11 {
+
+	// metodo para calcular el numero de clientes en funcion de los kilos de P y C
+	public static int numeroClientes(double p, double c) {
+
+		int clientes = 0;
+		
+		do {
+			clientes += 3;
+			p -= 1;
+			c -= 0.5;
+		} while (p >= 1 && c >= 0.5);
+
+		return clientes;
+
+	}
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Introduce la cantidad de papas en kilos: ");
+		double p = sc.nextDouble();
+		System.out.println("Introduce la cantidad de chocos en kilos: ");
+		double c = sc.nextDouble();
+		
+		System.out.println("La cantidad de clientes es: " + numeroClientes(p, c));
+
+		sc.close();
+	}
+}

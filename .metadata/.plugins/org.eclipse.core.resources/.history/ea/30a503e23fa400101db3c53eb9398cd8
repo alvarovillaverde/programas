@@ -1,0 +1,16 @@
+package dos;
+
+public class testSatelite2 {
+
+	public static void main(String[] args) {
+		
+		Satelite2 xabarin = new Satelite2(-7.92,42.1,5.0);
+		xabarin.printPosicion();
+		
+		Satelite2 mir = new Satelite2();
+		mir.setPosicion(44.5, 53.7, 300);
+		mir.printPosicion();
+		
+	}
+	
+}

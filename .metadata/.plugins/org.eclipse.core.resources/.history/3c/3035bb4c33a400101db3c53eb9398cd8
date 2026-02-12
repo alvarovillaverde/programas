@@ -1,0 +1,31 @@
+package dos;
+
+public class propuesto3 {
+
+	int num;
+	
+	propuesto3(int n) {
+		this.num = n;
+	}
+
+	propuesto3(propuesto3 obj) {
+		this.num = obj.num;
+		System.out.println("hemos creado una copia de: " + obj.toString());
+	}
+	
+	public int getNum() {
+		return this.num;
+	}
+
+	public void setNum(int n) {
+		this.num = n;
+	}
+
+	public int calcularDoble() {
+		return 2 * this.num;
+	}
+
+	public int calcularTriple() {
+		return 3 * this.num;
+	}
+}

@@ -1,0 +1,23 @@
+package dos;
+
+import java.util.Scanner;
+
+public class testAutomovil {
+	public static void main(String[] args) {
+		
+		// crear dos objetos Automovil con diferentes atributos
+		Automovil auto1 = new Automovil("Toyota", "Rojo", 50);
+		Automovil auto2 = new Automovil("Ford", "Azul", 30);
+		
+		//usar metodo mejorado acelerar o frenar
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Como es la aceleración del vehículo?");
+		int aumento = sc.nextInt();
+		
+		System.out.println(auto1.toString());
+		System.out.println(auto2.toString());
+		
+		System.out.println(auto1.equals(auto2));
+	}
+}
