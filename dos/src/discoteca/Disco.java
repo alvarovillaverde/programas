@@ -25,6 +25,9 @@ public class Disco {
         this.genero = genero;
         this.duracion = duracion;
     }
+
+    // constructor por defecto
+    public Disco() {}
     
 	//get set
 	public String getCodigo() {
@@ -69,8 +72,8 @@ public class Disco {
 
 	//toString
 	public String toString() {
-		String cadena = "\n------------------------------------------";
-		cadena += "\nCódigo: " + this.codigo;
+		String cadena = "";
+		cadena += "Código: " + this.codigo;
 		cadena += "\nAutor: " + this.autor;
 		cadena += "\nTítulo: " + this.titulo;
 		cadena += "\nGénero: " + this.genero;
