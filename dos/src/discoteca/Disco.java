@@ -10,13 +10,28 @@ public class Disco {
 	private int duracion; // duración total en minutos
 
 	//constructor????? 
-	
+	public Disco(String codigo, String autor, String titulo, String genero, int duracion) {
+        this.codigo = codigo;
+        this.autor = autor;
+        this.titulo = titulo;
+        this.genero = genero;
+        this.duracion = duracion;
+    }
+
+    // constructor sin codigo
+    public Disco(String autor, String titulo, String genero, int duracion) {
+        this.autor = autor;
+        this.titulo = titulo;
+        this.genero = genero;
+        this.duracion = duracion;
+    }
+    
 	//get set
 	public String getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+    public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
