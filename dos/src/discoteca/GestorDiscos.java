@@ -6,47 +6,17 @@ public class GestorDiscos {
 
     public static Scanner s;
 
-    public static Disco[] discos= new Disco[100];
-
-    public static void crearColeccion() {
-        for (int i = 0; i < discos.length; i++) {
-            discos[i] = new Disco();
-        }
-    }
-
-    public static void mockDiscos() {
-        // Carga varios discos
-        discos[0] = new Disco(
-        "GASA41", "Wim Mertens", "Maximazing the Audience", "instrumental", 50);
-        discos[1] = new Disco(
-        "FGHQ64", "Metallica", "Black album", "hard rock", 46);
-        discos[2] = new Disco(
-        "TYUI89", "Supersubmarina", "Viento de cara", "pop rock", 42);
-    }
-
-    private static void addDisco() {
-        s = new Scanner(System.in);
-        System.out.println("Por favor, introduzca los datos del disco.");
-				System.out.print("Código: ");
-				String codigoIn = s.nextLine();
-				System.out.print("Autor: ");
-				String autorIn = s.nextLine();
-				System.out.print("Título: ");
-				String tituloIn = s.nextLine();
-				System.out.print("Género: ");
-				String generoIn = s.nextLine();
-				System.out.print("Duración: ");
-				Integer duracionIn = Integer.parseInt(s.nextLine());
-				//discos[primeraLibre] = new Disco(codigoIn, autorIn, tituloIn,
-				//		generoIn, duracionIn);
-    }
-
     public static void main(String[] args) {
         int opcion;
+		boolean seguir = true;
         Scanner s = new Scanner(System.in);
         //empezar
-        crearColeccion();
-        mockDiscos();
+        if (Disco.discos.length == 0) {
+			Disco.crearColeccion();
+		} else {
+			Disco.cargarColeccionDesdeAlmacenamiento();
+		}
+
         do {
 			System.out.println("\nCOLECCIÓN DE DISCOS");
 			System.out.println("===================");
@@ -54,7 +24,9 @@ public class GestorDiscos {
 			System.out.println("2. Nuevo disco");
 			System.out.println("3. Modificar");
 			System.out.println("4. Borrar");
-			System.out.println("5. Salir");
+			System.out.println("5. Guardar coleccion");
+			System.out.println("6. Cargar coleccion");
+			System.out.println("7. Salir");
 			System.out.print("Introduzca una opción: ");
 			opcion = Integer.parseInt(s.nextLine());
 
@@ -63,7 +35,7 @@ public class GestorDiscos {
 				System.out.println("\nLISTADO");
 				System.out.println("=======");
 
-				for (Disco d : discos) {
+				for (Disco d : Disco.discos) {
 					if (!d.getCodigo().equals("LIBRE")) {
 						System.out.println(d);
 					}
@@ -75,7 +47,7 @@ public class GestorDiscos {
 				System.out.println("\nNUEVO DISCO");
 				System.out.println("===========");
                 //metodo para añadir
-                addDisco();
+                Disco.addDisco();
 				break;
 
 			case 3:
@@ -87,14 +59,29 @@ public class GestorDiscos {
 			case 4:
 				System.out.println("\nBORRAR");
 				System.out.println("======");
-                //metodo para borrar
+                //metodo para borrar que tenga code num
 
 				break;
 
+			case 5:
+				System.out.println("\nGUARDAR");
+				System.out.println("==========");
+				Disco.guardarColeccionEnAlmacenamiento();
+				break;
+
+			case 6:
+				System.out.println("\nCARGAR");
+				System.out.println("===========");
+				Disco.cargarColeccionDesdeAlmacenamiento();
+				break;
+
+			case 7:
+				System.out.println("...abandonando gestion de discos...");
+				seguir = false;
 			default:
-                System.out.println("...abandonando gestion de discos...");
+                System.out.println("INTRODUCE OPCIÓN VÁLIDA");
 			} // switch
-		} while (opcion != 5);
+		} while (seguir);
         s.close();
     }
 }

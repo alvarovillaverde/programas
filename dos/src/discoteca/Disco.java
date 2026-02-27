@@ -1,6 +1,17 @@
 package discoteca;
 
-public class Disco {
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Scanner;
+
+public class Disco implements Serializable {
+	
+    public static Scanner s = new Scanner(System.in);
 
 	//atributos
 	private String codigo = "LIBRE";
@@ -82,4 +93,81 @@ public class Disco {
 		return cadena;
 	}
 
+	public static Disco[] discos= new Disco[100];
+
+    public static void crearColeccion() {
+        for (int i = 0; i < discos.length; i++) {
+            discos[i] = new Disco();
+        }
+    }
+
+    public static void mockDiscos() {
+        // Carga varios discos
+        discos[0] = new Disco(
+        "GASA41", "Wim Mertens", "Maximazing the Audience", "instrumental", 50);
+        discos[1] = new Disco(
+        "FGHQ64", "Metallica", "Black album", "hard rock", 46);
+        discos[2] = new Disco(
+        "TYUI89", "Supersubmarina", "Viento de cara", "pop rock", 42);
+    }
+
+	public static void addDisco() {
+		int pos = -1; //evito problems
+		boolean no_trovato = true;
+
+		do {
+			pos++;
+			if (discos[pos].getCodigo().equals("LIBRE")) {
+				no_trovato = false;
+			}
+		} while (no_trovato);
+
+        s = new Scanner(System.in);
+        System.out.println("Por favor, introduzca los datos del disco.");
+				System.out.print("Código: ");
+				String codigoIn = s.nextLine();
+				System.out.print("Autor: ");
+				String autorIn = s.nextLine();
+				System.out.print("Título: ");
+				String tituloIn = s.nextLine();
+				System.out.print("Género: ");
+				String generoIn = s.nextLine();
+				System.out.print("Duración: ");
+				Integer duracionIn = Integer.parseInt(s.nextLine());
+
+		discos[pos] = new Disco(codigoIn, autorIn, tituloIn,
+		generoIn, duracionIn);
+    }
+
+	public static void cargarColeccionDesdeAlmacenamiento() {
+		File fichero = new File("collection.obj");
+
+		if (!fichero.exists()) {
+			System.out.println("No hay archivo de guardado previo. Creando colección nueva...");
+		}
+
+		try {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichero));
+			discos = (Disco[]) ois.readObject();
+			System.out.println("Coleccion cargada con exito");
+			ois.close();
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO: handle exception
+			System.out.println("Error al cargar la coleccion: " + e.getMessage());
+			crearColeccion();
+			mockDiscos();
+		}
+	}
+
+	public static void guardarColeccionEnAlmacenamiento() {
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("coleccion.obj"));
+			oos.writeObject(discos);
+			System.out.println("Coleccion guardada correctamente en coleccion.obj");
+			oos.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error al guardar la colección " + e.getMessage());
+		}
+	}
 }
