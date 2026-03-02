@@ -93,7 +93,10 @@ public class Disco implements Serializable {
 		return cadena;
 	}
 
-	public static Disco[] discos= new Disco[100];
+	
+	public static final int PLAZAS = 100;
+
+	public static Disco[] discos= new Disco[PLAZAS];
 
     public static void crearColeccion() {
         for (int i = 0; i < discos.length; i++) {
@@ -135,9 +138,59 @@ public class Disco implements Serializable {
 				System.out.print("Duración: ");
 				Integer duracionIn = Integer.parseInt(s.nextLine());
 
-		discos[pos] = new Disco(codigoIn, autorIn, tituloIn,
-		generoIn, duracionIn);
+		discos[pos] = new Disco(codigoIn, autorIn, tituloIn, generoIn, duracionIn);
+		System.out.println("...añadido disco a la coleccion...");
     }
+
+	public static int buscarCodigo() {
+
+		System.out.println("Introduzca codigo existente: ");
+		String code = s.nextLine();
+
+		for (int i = 0; i < discos.length; i++) {
+			if (discos[i].getCodigo().equals(code)) {
+				return i;
+			}
+		}
+		
+		return -1;
+		
+	}
+
+	public static void modificarDiscoExistente() {
+		int indice = buscarCodigo();
+
+		if (indice == -1) {
+			System.out.println("Código no encontrado.");
+		} else {
+			System.out.println("DATOS ACTUALES DEL DISCO:");
+			System.out.println(discos[indice].toString());
+			
+			System.out.println("\n--- Introduzca los nuevos datos ---");
+
+			// Pedimos los nuevos datos. 
+			// Nota: Si usas Scanner, asegúrate de gestionar el buffer tras leer números.
+			System.out.print("Nuevo Autor: ");
+			String nuevoAutor = s.nextLine();
+			
+			System.out.print("Nuevo Título: ");
+			String nuevoTitulo = s.nextLine();
+			
+			System.out.print("Nuevo Género: ");
+			String nuevoGenero = s.nextLine();
+			
+			System.out.print("Nueva Duración: ");
+			int nuevaDuracion = Integer.parseInt(s.nextLine());
+
+			// Aplicamos los cambios usando los setters del objeto
+			discos[indice].setAutor(nuevoAutor);
+			discos[indice].setTitulo(nuevoTitulo);
+			discos[indice].setGenero(nuevoGenero);
+			discos[indice].setDuracion(nuevaDuracion);
+
+			System.out.println("\nDisco modificado con éxito.");
+		}
+	}
 
 	public static void cargarColeccionDesdeAlmacenamiento() {
 		File fichero = new File("collection.obj");

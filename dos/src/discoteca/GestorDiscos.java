@@ -54,6 +54,7 @@ public class GestorDiscos {
 				System.out.println("\nMODIFICAR");
 				System.out.println("===========");
                 //metodo para modificar que tenga code num
+				Disco.modificarDiscoExistente();
 				break;
 
 			case 4:
