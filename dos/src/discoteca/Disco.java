@@ -30,12 +30,12 @@ public class Disco implements Serializable {
     }
 
     // constructor sin codigo
-    public Disco(String autor, String titulo, String genero, int duracion) {
+    /* public Disco(String autor, String titulo, String genero, int duracion) {
         this.autor = autor;
         this.titulo = titulo;
         this.genero = genero;
         this.duracion = duracion;
-    }
+    } */
 
     // constructor por defecto
     public Disco() {}
@@ -93,7 +93,6 @@ public class Disco implements Serializable {
 		return cadena;
 	}
 
-	
 	public static final int PLAZAS = 100;
 
 	public static Disco[] discos= new Disco[PLAZAS];
@@ -221,6 +220,37 @@ public class Disco implements Serializable {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error al guardar la colección " + e.getMessage());
+		}
+	}
+
+	public static void borrarDiscoExistente() {
+		int indice = buscarCodigo();
+
+		if (indice == -1) {
+			System.out.println("Código no encontrado.");
+		} else {
+			System.out.println("DATOS DEL DISCO A ELIMINAR:");
+			System.out.println(discos[indice].toString());
+
+			// Primera confirmación
+			System.out.print("¿Estás seguro de que quieres borrar este disco? (s/n): ");
+			String respuesta1 = s.nextLine().toLowerCase();
+
+			if (respuesta1.equals("s")) {
+				// Segunda confirmación (el "doble check" de seguridad)
+				System.out.print("¿ESTÁS COMPLETAMENTE SEGURO? Esta acción no se puede deshacer (s/n): ");
+				String respuesta2 = s.nextLine().toLowerCase();
+
+				if (respuesta2.equals("s")) {
+					//discos[indice] = null; // Borrado lógico
+					discos[indice] = new Disco();
+					System.out.println("Disco eliminado correctamente.");
+				} else {
+					System.out.println("Borrado cancelado en el último momento.");
+				}
+			} else {
+				System.out.println("Operación de borrado cancelada.");
+			}
 		}
 	}
 }

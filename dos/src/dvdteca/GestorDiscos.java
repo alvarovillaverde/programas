@@ -1,9 +1,9 @@
-package discoteca;
+package dvdteca;
 
+import java.util.Collections;
 import java.util.Scanner;
 
 public class GestorDiscos {
-
     public static Scanner s;
 
     public static void main(String[] args) {
@@ -11,10 +11,10 @@ public class GestorDiscos {
 		boolean seguir = true;
         Scanner s = new Scanner(System.in);
         //empezar
-        if (Disco.discos.length == 0) {
-			Disco.crearColeccion();
-		} else {
+        if (Disco.discos.isEmpty()) {
 			Disco.cargarColeccionDesdeAlmacenamiento();
+		} else {
+			Disco.mockDiscos();
 		}
 
         do {
@@ -26,7 +26,8 @@ public class GestorDiscos {
 			System.out.println("4. Borrar");
 			System.out.println("5. Guardar coleccion");
 			System.out.println("6. Cargar coleccion");
-			System.out.println("7. Salir");
+			System.out.println("7. Escoger criterio ordenamiento");
+			System.out.println("8. Salir");
 			System.out.print("Introduzca una opción: ");
 			opcion = Integer.parseInt(s.nextLine());
 
@@ -36,9 +37,7 @@ public class GestorDiscos {
 				System.out.println("=======");
 
 				for (Disco d : Disco.discos) {
-					if (!d.getCodigo().equals("LIBRE")) {
-						System.out.println(d);
-					}
+					System.out.println(d);
 				}
 
 				break;
@@ -48,6 +47,7 @@ public class GestorDiscos {
 				System.out.println("===========");
                 //metodo para añadir
                 Disco.addDisco();
+                Collections.sort(Disco.discos);
 				break;
 
 			case 3:
@@ -77,10 +77,14 @@ public class GestorDiscos {
 				break;
 
 			case 7:
+				System.out.println("...escoger criterio de ordenamiento...");
+				Disco.escogerOrdenamiento();
+				break;
+			case 8:
 				System.out.println("...abandonando gestion de discos...");
 				seguir = false;
-				Disco.guardarColeccionEnAlmacenamiento();
-				break;
+                Disco.guardarColeccionEnAlmacenamiento();
+                break;
 			default:
                 System.out.println("INTRODUCE OPCIÓN VÁLIDA");
 			} // switch
