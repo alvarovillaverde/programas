@@ -74,6 +74,31 @@ public class Disco implements Serializable, Comparable<Disco> {
         discos.add(new Disco("TYUI89", "Supersubmarina", "Viento de cara", "pop rock", 42));
     }
 
+    public static void mock100Discos() {
+        String[] autores = {"Wim Mertens", "Metallica", "Supersubmarina", "Radiohead", "Pink Floyd", "Daft Punk", "Rosalía"};
+        String[] generos = {"instrumental", "hard rock", "pop rock", "electronic", "progressive", "indie", "flamenco"};
+        String[] adjetivosTitulo = {"Greatest Hits", "Live Session", "Remastered", "Vol. 1", "The Collection", "Acoustic"};
+
+        for (int i = 0; i < 100; i++) {
+            // Generamos un código único basado en el índice (ej: DISCO00, DISCO01...)
+            String codigo = String.format("DISC%02d", i);
+            
+            // Seleccionamos datos aleatorios de los arrays
+            String autor = autores[(int) (Math.random() * autores.length)];
+            String genero = generos[(int) (Math.random() * generos.length)];
+            
+            // Combinamos autor y adjetivo para que los títulos tengan sentido y se repitan
+            String titulo = autor + " " + adjetivosTitulo[(int) (Math.random() * adjetivosTitulo.length)];
+            
+            // Duración aleatoria entre 30 y 80 minutos
+            int duracion = (int) (Math.random() * 51) + 30;
+
+            discos.add(new Disco(codigo, autor, titulo, genero, duracion));
+        }
+        
+        System.out.println("Se han cargado 100 discos de prueba con éxito.");
+    }
+
    public static void cargarColeccionDesdeAlmacenamiento() {
 		File fichero = new File("galeria.obj");
 
@@ -322,10 +347,16 @@ public class Disco implements Serializable, Comparable<Disco> {
         return true;
     }
     @Override
-    public String toString() {
-        return "Disco [codigo=" + codigo + ", autor=" + autor + ", titulo=" + titulo + ", genero=" + genero
-                + ", duracion=" + duracion + "]";
-    }
+	public String toString() {
+		String cadena = "";
+		cadena += "Código: " + this.codigo;
+		cadena += "\nAutor: " + this.autor;
+		cadena += "\nTítulo: " + this.titulo;
+		cadena += "\nGénero: " + this.genero;
+		cadena += "\nDuración: " + this.duracion;
+		cadena += "\n------------------------------------------";
+		return cadena;
+	}
     @Override
     public int compareTo(Disco o) {
     // Ordenar alfabéticamente por título (ignorando mayúsculas/minúsculas)
