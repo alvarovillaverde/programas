@@ -242,7 +242,7 @@ public class Articulo implements Serializable, Comparable<Articulo>{
 	  @Override
 	  public int compareTo(Articulo o) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
+		return this.codigo;
 	  }
 
 }

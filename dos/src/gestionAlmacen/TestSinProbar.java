@@ -27,12 +27,12 @@ public class TestSinProbar {
 	  static Almacen almacen = new Almacen();
 	  static Scanner entrada = new Scanner(System.in);
 	  private static Menu menu = new Menu("----MENÚ GESTISIMAL----", new String[] {"Listado", "Alta", "Baja",
-	      "Modificación", "Entrada de mercancía","Salida de mercancía", "Salir" });
+	      "Modificación", "Entrada de mercancía", "Salida de mercancía", "Cargar coleccion", "Guardar coleccion", "Salir" });
 
 	  public static void main(String[] args) throws Exception {
 
 	    int opcion;
-
+		cargarColeccionDesdeAlmacenamiento();
 	    //almacenDePrueba();
 	    do {
 	      switch ((menu.gestionar())) {
@@ -61,6 +61,8 @@ public class TestSinProbar {
 			  guardarColeccionEnAlmacenamiento();
 			  break;
             case 9:
+				guardarColeccionEnAlmacenamiento();
+				System.out.println("Coleccion guardada al salir");
                 System.out.println("Gracias por usar Gestisimal.");
                 return;
 	         default:
@@ -200,7 +202,7 @@ public class TestSinProbar {
 				almacen.setArraylist(listaCargada);
 				
 				// Ordenamos si Articulo implementa Comparable
-				// Collections.sort(listaCargada); 
+				Collections.sort(listaCargada); 
 				
 				System.out.println("Colección cargada con éxito. Artículos recuperados: " + listaCargada.size());
 			}
@@ -209,7 +211,7 @@ public class TestSinProbar {
 			}
 		}
 	
-		public static void guardarColeccionEnAlmacenamiento() {
+	public static void guardarColeccionEnAlmacenamiento() {
     // Usamos try-with-resources para que el stream se cierre solo pase lo que pase
     try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("almacen.obj"))) {
         
@@ -225,5 +227,5 @@ public class TestSinProbar {
     } catch (IOException e) {
         System.err.println("Error al guardar la colección: " + e.getMessage());
     }
-}
 	}
+}
