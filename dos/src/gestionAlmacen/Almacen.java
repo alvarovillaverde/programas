@@ -1,5 +1,6 @@
 package gestionAlmacen;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,11 +8,19 @@ import java.util.ArrayList;
  *
  */
 
-public class Almacen {
+public class Almacen implements Serializable {
   
 	//MI ALMACEN es un arraylist de articulos??? 
 	private ArrayList<Articulo> arraylist = new ArrayList<Articulo>();
 
+  //2. Método para que el Test pueda inyectar la lista cargada
+  public void setArraylist(ArrayList<Articulo> nuevaLista) {
+      this.arraylist = nuevaLista;
+  }
+
+  public ArrayList<Articulo> getListado() {
+      return this.arraylist;
+  }
   /**
    * Añadir un articulo
    * 

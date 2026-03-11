@@ -1,6 +1,8 @@
 package gestionAlmacen;
 
-public class Articulo {
+import java.io.Serializable;
+
+public class Articulo implements Serializable, Comparable<Articulo>{
 
 	  // atributo de clase
 	  private static int contador = 1;
@@ -235,6 +237,12 @@ public class Articulo {
 	    setPrecioCompra(precioCompra);
 	    setPrecioVenta(precioVenta);
 	    setStock(stock);
+	  }
+
+	  @Override
+	  public int compareTo(Articulo o) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
 	  }
 
 }
