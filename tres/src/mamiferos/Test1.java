@@ -10,12 +10,17 @@ public static void main(String[] args) {
     lista.add(ba);
     Ornitorrinco or = new Ornitorrinco();
     lista.add(or);
+    Murcielago mu = new Murcielago();
+    lista.add(mu);
 
     for (Mamifero mamifero : lista) {
         mamifero.amamantarCrias();
         mamifero.comer();
         if (mamifero instanceof Ornitorrinco) {
             ((Ornitorrinco)mamifero).ponerHuevos();
+        }
+        if (mamifero instanceof Murcielago) {
+            ((Murcielago)mamifero).volar();
         }
     }
 }

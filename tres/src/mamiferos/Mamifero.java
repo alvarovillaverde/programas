@@ -6,4 +6,5 @@ public abstract class Mamifero {
     public void comer() {
         System.out.println("los mamiferos comen para sobrevivir");
     }
+
 }
