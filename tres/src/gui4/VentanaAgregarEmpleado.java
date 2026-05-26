@@ -15,7 +15,11 @@ public class VentanaAgregarEmpleado extends JFrame implements ActionListener {
     private Container contenedor;
     private JLabel lblNombre, lblApellidos, lblCargo, lblGenero, lblSalario, lblDias, lblOtros, lblSalud, lblPension;
     private JTextField txtNombre, txtApellidos, txtSalario, txtDias, txtOtros, txtSalud, txtPension;
-    private JComboBox<String> comboCargo, comboGenero;
+    
+    // CORREGIDO: Combos tipados con los enumerados de Empleado
+    private JComboBox<Empleado.Cargo> comboCargo;
+    private JComboBox<Empleado.Genero> comboGenero;
+    
     private JButton btnAceptar, btnCancelar;
     private ListaEmpleados lista;
 
@@ -52,16 +56,16 @@ public class VentanaAgregarEmpleado extends JFrame implements ActionListener {
         y += separacion;
         lblCargo = new JLabel("Cargo:");
         lblCargo.setBounds(20, y, 110, 23);
-        String[] cargos = {"directivo", "estrategico", "operativo"};
-        comboCargo = new JComboBox<>(cargos);
+        // CORREGIDO: Pasa el array de valores del enum directamente
+        comboCargo = new JComboBox<>(Empleado.Cargo.values());
         comboCargo.setBounds(140, y, 140, 23);
         contenedor.add(lblCargo); contenedor.add(comboCargo);
 
         y += separacion;
         lblGenero = new JLabel("Género:");
         lblGenero.setBounds(20, y, 110, 23);
-        String[] generos = {"masculino", "femenino"};
-        comboGenero = new JComboBox<>(generos);
+        // CORREGIDO: Pasa el array de valores del enum directamente
+        comboGenero = new JComboBox<>(Empleado.Genero.values());
         comboGenero.setBounds(140, y, 140, 23);
         contenedor.add(lblGenero); contenedor.add(comboGenero);
 
@@ -122,8 +126,10 @@ public class VentanaAgregarEmpleado extends JFrame implements ActionListener {
             try {
                 String nombre = txtNombre.getText();
                 String apellidos = txtApellidos.getText();
-                String cargoStr = (String) comboCargo.getSelectedItem();
-                String generoStr = (String) comboGenero.getSelectedItem();
+                
+                // CORREGIDO: Recuperamos el enum seleccionado directamente sin conversiones raras
+                Empleado.Cargo cargoElegido = (Empleado.Cargo) comboCargo.getSelectedItem();
+                Empleado.Genero generoElegido = (Empleado.Genero) comboGenero.getSelectedItem();
                 
                 double salario = Double.parseDouble(txtSalario.getText());
                 int dias = Integer.parseInt(txtDias.getText());
@@ -131,13 +137,12 @@ public class VentanaAgregarEmpleado extends JFrame implements ActionListener {
                 double salud = Double.parseDouble(txtSalud.getText());
                 double pension = Double.parseDouble(txtPension.getText());
 
-                // Crea el objeto mapeando correctamente los enums privados
-                Empleado nuevo = Empleado.crearDesdeString(
-                    nombre, apellidos, cargoStr, generoStr, 
+                // Pasamos los objetos Enum directamente al constructor original
+                Empleado nuevo = new Empleado(
+                    nombre, apellidos, cargoElegido, generoElegido, 
                     salario, dias, otros, salud, pension
                 );
 
-                // Lo añade a la lista compartida
                 lista.contratarEmpleado(nuevo);
 
                 JOptionPane.showMessageDialog(this, "Empleado agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
