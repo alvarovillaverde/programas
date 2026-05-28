@@ -86,7 +86,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	} else if (hotel.buscarHabitacionOcupada(numero)) {
 	// Se busca que la habitación esté ocupada
 	// Se crea ventana de salida del huésped
-	VentanaSalida ventanaSalida = new 	VentanaSalida(hotel, numero);
+	VentanaSalida ventanaSalida = new VentanaSalida(hotel, numero);
 	ventanaSalida.setVisible(true); /* Se visualiza la ventana de salida del huésped */
 	} else { /* Si la habitación no está ocupada, se muestra un
 	mensaje de error */
